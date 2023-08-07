@@ -30,7 +30,6 @@ formEl.addEventListener('submit', onSubmit);
 function onSubmit(event) {
   event.preventDefault();
   for (let i = 1; i <= formData.amount; i += 1) {
-      formData.delay += formData.step;
       createPromise(i, formData.delay)
         .then(({ position, delay }) => {
           Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
@@ -38,6 +37,8 @@ function onSubmit(event) {
         .catch(({ position, delay }) => {
           Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
         });
-    }
+     formData.delay += formData.step;
+  }
+  formEl.reset();
 }
 
